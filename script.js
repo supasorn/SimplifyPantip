@@ -13,6 +13,12 @@ function simplify() {
   $(".display-post-title").css({ "padding-top": "8px" });
   $(".logo-banner").css({"height": "35px"});
   $(".logo-banner .container-outer").css({"height": "35px"});
+  $(".loadmore-bar").css(
+      {
+        "margin-top": "5px",
+        "margin-bottom": "3px",
+        "line-height": "20px"
+      });
 
   $(".display-post-number").not(".done").each(function() {
     var num = $(this).attr("id").replace("comment", "");
