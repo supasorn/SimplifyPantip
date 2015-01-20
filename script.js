@@ -57,6 +57,7 @@ function simplify() {
   $(".display-post-ip").remove();
   $(".display-post-story-footer").remove();
   $(".display-post-tag-wrapper").remove();
+  $(".display-post-status").remove();
   $(".ads-topbillboard").remove();
   $(".logo-banner").not(".done").find("a").last().remove();
   $(".logo-banner").addClass("done");
