@@ -20,11 +20,21 @@ function simplify() {
         "line-height": "20px"
       });
 
+  var authorId = $(".display-post-name.owner").attr('id');
   $(".display-post-number").not(".done").each(function() {
     var num = $(this).attr("id").replace("comment", "");
     var ofs = "-" + (10 + num.length * 10) + "px";
-      
-    $(this).closest(".display-post-wrapper-inner").prepend('<div style="position:absolute; left:' + ofs + '; top: 10px; font-size: 20px; color: #8f8bc5">' + num + '</div>');
+    
+    var postA = $(this).closest(".display-post-status-leftside").find("a.display-post-name");
+    var postId = postA.attr("href");
+    
+    var dec = 'color: #8f8bc5';
+    if (postId != undefined && postId.replace("/profile/", "") == authorId) {
+      dec = 'color: white; font-weight: bold;';
+      postA.html(postA.html() + " [author]");
+    }
+
+    $(this).closest(".display-post-wrapper-inner").prepend('<div style="position:absolute; left:' + ofs + '; top: 10px; font-size: 20px; ' + dec + '">' + num + '</div>');
     $(this).addClass("done");
   });
 
@@ -68,6 +78,8 @@ function simplify() {
   $(".logo-banner").not(".done").find("a").last().remove();
   $(".logo-banner").addClass("done");
   //$(".icon-memberbadge-mini").remove();
+  //
+
 }
 
 
