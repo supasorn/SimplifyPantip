@@ -31,7 +31,7 @@ function simplify() {
     var dec = 'color: #8f8bc5';
     if (postId != undefined && postId.replace("/profile/", "") == authorId) {
       dec = 'color: white; font-weight: bold;';
-      postA.html(postA.html() + " [author]");
+      postA.append(" [author]");
     }
 
     $(this).closest(".display-post-wrapper-inner").prepend('<div style="position:absolute; left:' + ofs + '; top: 10px; font-size: 20px; ' + dec + '">' + num + '</div>');
