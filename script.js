@@ -80,6 +80,7 @@ function simplify() {
   $(".display-post-edit").remove(); // trash bin icon
   $(".display-post-number").hide(); // if removed, can't +
   $(".display-post-tag-wrapper").remove();
+  $(".display-post-status").remove();
 
   $(".ads-topbillboard").remove();
   $(".logo-banner").not(".done").find("a").last().remove();
