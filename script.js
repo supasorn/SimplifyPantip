@@ -19,6 +19,7 @@ function simplify() {
         "margin-bottom": "3px",
         "line-height": "20px"
       });
+  $(".display-post-story-footer").css({ "margin-top": "3px" });
 
   var authorId = $(".display-post-name.owner").attr('id');
   $(".display-post-number").not(".done").each(function() {
@@ -34,23 +35,14 @@ function simplify() {
       postA.append(" [author]");
     }
 
-    $(this).closest(".display-post-wrapper-inner").prepend('<div style="position:absolute; left:' + ofs + '; top: 10px; font-size: 20px; ' + dec + '">' + num + '</div>');
+    $(this).closest(".display-post-wrapper-inner").prepend('<div class="commentnum" style="position:absolute; left:' + ofs + '; top: 10px; font-size: 20px; cursor: pointer; ' + dec + '">' + num + '</div>');
     $(this).addClass("done");
-  });
-
-  var e2 = $(".display-post-wrapper-inner .display-post-status-leftside").not(".done");
-  e2.wrapInner("<div style='display:table-cell'></div>");
-  e2.append("<div style='display:table-cell; width: 250px; vertical-align:top;' class='rightspace'></div>");
-  e2.addClass("done");
-
-  $(".display-post-wrapper-inner .display-post-action").each(function() {
-    $(this).closest(".display-post-status-leftside").find(".rightspace").append($(this).html());
-    $(this).remove();
   });
 
   var e1 = $(".main-post").not(".done").find(".display-post-status-leftside").last();
   e1.wrapInner("<div style='display:table-cell'></div>");
   e1.append("<div style='display:table-cell; width: 250px; vertical-align:top;' class='rightspace'></div>");
+
   e1.find(".display-post-action").each(function() {
     $(this).closest(".display-post-status-leftside").find(".rightspace").append($(this).html());
     $(this).remove();
@@ -58,34 +50,47 @@ function simplify() {
   $(".main-post").not(".done").find(".display-post-favourite").parent().remove();
   $(".main-post").addClass("done");
 
+  var e2 = $(".display-post-wrapper-inner .display-post-status-leftside").not(".done");
+  e2.wrapInner("<div style='display:table-cell'></div>");
+  e2.append("<div style='display:table-cell; width: 250px; vertical-align:top;' class='rightspace'></div>");
+  e2.addClass("done");
 
-  $(".display-post-wrapper-inner").each(function(index) {
-    $(this).css({"background-color": index % 2 ? "#1b1b35" : "#222244"});
-    //$(this).css({"background-color": index % 2 ? "#1c1c38" : "#222244"});
+  $(".display-post-wrapper-inner .display-post-action").not(".done").each(function() {
+    var rightspace = $(this).closest(".display-post-status-leftside").find(".rightspace");
+    rightspace.append($(this).html());
+    rightspace.find(".display-post-emotion").remove();
+    rightspace.find(".display-post-vote").remove();
+    rightspace.find(".display-post-ip").remove();
+    $(this).addClass("done");
   });
+
+  $(".commentnum").unbind().click(function() {
+    //$(this).parent().find(".display-post-story-footer").toggle();
+    $(this).parent().find(".display-post-story-footer").slideToggle();
+  });
+
+  $(".display-post-wrapper-inner").not(".done").each(function(index) {
+    $(this).css({"background-color": index % 2 ? "#1b1b35" : "#222244"});
+    $(this).addClass("done");
+  });
+  $(".display-post-story-footer").not(".done").hide().addClass("done");
+  $(".display-post-story-footer .display-post-avatar").remove();
+  
   $(".display-post-wrapper").css({ "padding-top": "3px", });
-  $(".display-post-vote").remove();
-  $(".display-post-edit").remove();
-  $(".display-post-emotion").remove();
-  $(".display-post-number").remove();
-  $(".emotion-vote-user").remove();
-  $(".display-post-reply").remove();
-  $(".display-post-ip").remove();
-  $(".display-post-story-footer").remove();
+  $(".display-post-edit").remove(); // trash bin icon
+  $(".display-post-number").hide(); // if removed, can't +
   $(".display-post-tag-wrapper").remove();
-  $(".display-post-status").remove();
+
   $(".ads-topbillboard").remove();
   $(".logo-banner").not(".done").find("a").last().remove();
   $(".logo-banner").addClass("done");
-  //$(".icon-memberbadge-mini").remove();
-  //
-
 }
 
 
 var timer;
 $(".container-inner").bind("DOMSubtreeModified", function() {
-  timer = setTimeout(simplify, 750);
+  clearTimeout(timer);
+  timer = setTimeout(simplify, 500);
 });
 
 //simplify();
