@@ -39,20 +39,23 @@ function simplify() {
     $(this).addClass("done");
   });
 
+  
   var e1 = $(".main-post").not(".done").find(".display-post-status-leftside").last();
   e1.wrapInner("<div style='display:table-cell'></div>");
-  e1.append("<div style='display:table-cell; width: 250px; vertical-align:top;' class='rightspace'></div>");
+  e1.append("<div style='display:table-cell; width: 250px; vertical-align:top; padding-left: 3px' class='rightspace'></div>");
 
   e1.find(".display-post-action").each(function() {
-    $(this).closest(".display-post-status-leftside").find(".rightspace").append($(this).html());
-    $(this).remove();
+    var rightspace = $(this).closest(".display-post-status-leftside").find(".rightspace");
+    rightspace.append($(this).html());
+    rightspace.find(".display-post-emotion").remove();
+    rightspace.find(".display-post-vote").remove();
   });
   $(".main-post").not(".done").find(".display-post-favourite").parent().remove();
   $(".main-post").addClass("done");
 
   var e2 = $(".display-post-wrapper-inner .display-post-status-leftside").not(".done");
   e2.wrapInner("<div style='display:table-cell'></div>");
-  e2.append("<div style='display:table-cell; width: 250px; vertical-align:top;' class='rightspace'></div>");
+  e2.append("<div style='display:table-cell; width: 250px; vertical-align:top; padding-left: 3px' class='rightspace'></div>");
   e2.addClass("done");
 
   $(".display-post-wrapper-inner .display-post-action").not(".done").each(function() {
@@ -73,7 +76,7 @@ function simplify() {
     $(this).css({"background-color": index % 2 ? "#1b1b35" : "#222244"});
     $(this).addClass("done");
   });
-  $(".display-post-story-footer").not(".done").hide().addClass("done");
+  $(".display-post-wrapper-inner .display-post-story-footer").not(".done").hide().addClass("done");
   $(".display-post-story-footer .display-post-avatar").remove();
   
   $(".display-post-wrapper").css({ "padding-top": "3px", });
